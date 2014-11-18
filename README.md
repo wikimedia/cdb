@@ -30,8 +30,7 @@ Running tests
 
 ```
 composer install --prefer-dist
-cd test
-../vendor/phpunit/phpunit/phpunit .
+composer test
 ```
 
 History

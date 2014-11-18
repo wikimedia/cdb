@@ -13,14 +13,20 @@
             "email": "chad@wikimedia.org"
         }
     ],
-    "minimum-stability": "dev",
+    "autoload": {
+        "classmap": ["src/"]
+    },
     "require": {
         "php": ">=5.3.2"
     },
     "require-dev": {
-        "phpunit/phpunit": "*"
+        "jakub-onderka/php-parallel-lint": "0.8.*",
+        "phpunit/phpunit": "4.4.*"
     },
-    "autoload": {
-        "classmap": ["src/"]
+    "scripts": {
+        "test": [
+            "parallel-lint . --exclude vendor",
+            "phpunit"
+        ]
     }
 }
