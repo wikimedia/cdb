@@ -1,4 +1,4 @@
-[![Latest Stable Version](https://poser.pugx.org/cdb/cdb/v/stable.svg)](https://packagist.org/packages/cdb/cdb) [![License](https://poser.pugx.org/cdb/cdb/license.svg)](https://packagist.org/packages/cdb/cdb)
+[![Latest Stable Version](https://poser.pugx.org/wikimedia/cdb/v/stable.svg)](https://packagist.org/packages/wikimedia/cdb) [![License](https://poser.pugx.org/wikimedia/cdb/license.svg)](https://packagist.org/packages/wikimedia/cdb)
 
 CDB functions for PHP
 =====================
