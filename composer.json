@@ -21,12 +21,15 @@
     },
     "require-dev": {
         "jakub-onderka/php-parallel-lint": "0.8.*",
-        "phpunit/phpunit": "4.4.*"
+        "phpunit/phpunit": "4.4.*",
+        "squizlabs/php_codesniffer": "2.1.*",
+        "mediawiki/mediawiki-codesniffer": "dev-master"
     },
     "scripts": {
         "test": [
             "parallel-lint . --exclude vendor",
-            "phpunit $PHPUNIT_ARGS"
+            "phpunit $PHPUNIT_ARGS",
+            "phpcs $PHPCS_ARGS --standard=vendor/mediawiki/mediawiki-codesniffer/MediaWiki --ignore=vendor -v ."
         ]
     }
 }
