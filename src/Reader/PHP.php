@@ -1,6 +1,7 @@
 <?php
 
 namespace Cdb\Reader;
+
 use Cdb\Exception;
 use Cdb\Reader;
 use Cdb\Util;

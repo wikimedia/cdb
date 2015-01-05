@@ -1,6 +1,7 @@
 <?php
 
 namespace Cdb\Test;
+
 use Cdb\Reader;
 use Cdb\Writer;
 
