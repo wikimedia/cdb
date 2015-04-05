@@ -1,4 +1,7 @@
-<phpunit colors="true" strict="true">
+<phpunit
+	colors="true"
+	beStrictAboutTestsThatDoNotTestAnything="true"
+	beStrictAboutOutputDuringTests="true">
     <testsuites>
         <testsuite name="CDB Tests">
             <directory>./test</directory>
