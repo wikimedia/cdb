@@ -1,12 +1,11 @@
-<phpunit
-	colors="true"
+<phpunit colors="true"
 	beStrictAboutTestsThatDoNotTestAnything="true"
 	beStrictAboutOutputDuringTests="true">
-    <testsuites>
-        <testsuite name="CDB Tests">
-            <directory>./test</directory>
-        </testsuite>
-    </testsuites>
+	<testsuites>
+		<testsuite name="CDB Tests">
+			<directory>./test</directory>
+		</testsuite>
+	</testsuites>
 	<filter>
 		<whitelist addUncoveredFilesFromWhitelist="true">
 			<directory suffix=".php">./src</directory>

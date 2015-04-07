@@ -29,7 +29,7 @@
         "test": [
             "parallel-lint . --exclude vendor",
             "phpunit $PHPUNIT_ARGS",
-            "phpcs -v"
+            "phpcs -p"
         ]
     }
 }
