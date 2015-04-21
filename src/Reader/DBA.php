@@ -47,4 +47,16 @@ class DBA extends Reader {
 	public function get( $key ) {
 		return dba_fetch( $key, $this->handle );
 	}
+
+	public function exists( $key ) {
+		return dba_exists( $key, $this->handle );
+	}
+
+	public function firstkey() {
+		return dba_firstkey( $this->handle );
+	}
+
+	public function nextkey() {
+		return dba_nextkey( $this->handle );
+	}
 }

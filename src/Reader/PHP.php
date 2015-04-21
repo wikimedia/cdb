@@ -59,6 +59,9 @@ class PHP extends Reader {
 	/* initialized if cdb_findnext() returns 1 */
 	protected $dlen;
 
+	/* initialized in firstkey() and nextkey() */
+	protected $pos = 0;
+
 	/**
 	 * @param string $fileName
 	 * @throws Exception
@@ -216,6 +219,30 @@ class PHP extends Reader {
 		$this->findStart();
 
 		return $this->findNext( $key );
+	}
+
+	public function exists( $key ) {
+		if ( $this->find( strval( $key ) ) ) {
+			return true;
+		}
+
+		return false;
+	}
+
+	public function firstkey() {
+		$buf = $this->read( 8, 2048 );
+		$klen = $this->unpackSigned( substr( $buf, 0, 4 ) );
+		$dlen = $this->unpackSigned( substr( $buf, 4 ) );
+		$this->pos = 2048 + 4 + 4 + $klen + $dlen;
+		return fread( $this->handle, $klen );
+	}
+
+	public function nextkey() {
+		$buf = $this->read( 8, $this->pos );
+		$klen = $this->unpackSigned( substr( $buf, 0, 4 ) );
+		$dlen = $this->unpackSigned( substr( $buf, 4 ) );
+		$this->pos += 8 + $klen + $dlen;
+		return fread( $this->handle, $klen );
 	}
 }
 
