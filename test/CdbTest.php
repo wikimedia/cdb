@@ -27,6 +27,12 @@ class CdbTest extends \PHPUnit_Framework_TestCase {
 		$this->dbaCdbFile = tempnam( $temp, get_class( $this ) . '_' );
 	}
 
+	protected function tearDown() {
+		parent::tearDown();
+		unlink($this->phpCdbFile);
+		unlink($this->dbaCdbFile);
+	}
+
 	/**
 	 * Make a random-ish string
 	 * @return string
@@ -57,6 +63,8 @@ class CdbTest extends \PHPUnit_Framework_TestCase {
 			}
 		}
 
+		unset($data['']);
+
 		$w1->close();
 		$w2->close();
 
@@ -83,6 +91,31 @@ class CdbTest extends \PHPUnit_Framework_TestCase {
 			# cdbAssert( 'Mismatch', $key, $v1, $v2 );
 			$this->cdbAssert( "PHP error", $key, $v1, $value );
 			$this->cdbAssert( "DBA error", $key, $v2, $value );
+		}
+
+		$r1->close();
+		$r2->close();
+
+		$r1 = new Reader\PHP( $this->phpCdbFile );
+		$r2 = new Reader\DBA( $this->dbaCdbFile );
+
+		$keys = array_keys($data);
+		$firstKey = array_shift($keys);
+
+		$this->assertTrue($r1->exists($firstKey), 'PHP entry exists');
+		$this->assertTrue($r2->exists($firstKey), 'DBA entry exists');
+		$this->assertFalse($r1->exists(-1), 'PHP entry doesn\'t exists');
+		$this->assertFalse($r2->exists(-1), 'DBA entry doesn\'t exists');
+
+		$firstKey1 = $r1->firstkey();
+		$firstKey2 = $r2->firstkey();
+
+		$this->assertEquals($firstKey1, $firstKey, 'PHP Match first key');
+		$this->assertEquals($firstKey2, $firstKey, 'DBA Match first key');
+
+		unset($data[$firstKey]);
+		for ($j = 0, $max = count($data); $j < $max; $j++) {
+			$this->assertEquals($r2->nextkey(), $r1->nextkey(), 'nextkey match');
 		}
 	}
 
