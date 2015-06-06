@@ -230,17 +230,14 @@ class PHP extends Reader {
 	}
 
 	public function firstkey() {
-		$buf = $this->read( 8, 2048 );
-		$klen = $this->unpackSigned( substr( $buf, 0, 4 ) );
-		$dlen = $this->unpackSigned( substr( $buf, 4 ) );
-		$this->pos = 2048 + 4 + 4 + $klen + $dlen;
-		return fread( $this->handle, $klen );
+		$this->pos = 2048;
+		return $this->nextkey();
 	}
 
 	public function nextkey() {
 		$buf = $this->read( 8, $this->pos );
-		$klen = $this->unpackSigned( substr( $buf, 0, 4 ) );
-		$dlen = $this->unpackSigned( substr( $buf, 4 ) );
+		$klen = $this->unpack31( substr( $buf, 0, 4 ) );
+		$dlen = $this->unpack31( substr( $buf, 4 ) );
 		$this->pos += 8 + $klen + $dlen;
 		return fread( $this->handle, $klen );
 	}
