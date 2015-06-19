@@ -29,8 +29,8 @@ class CdbTest extends \PHPUnit_Framework_TestCase {
 
 	protected function tearDown() {
 		parent::tearDown();
-		unlink($this->phpCdbFile);
-		unlink($this->dbaCdbFile);
+		unlink( $this->phpCdbFile );
+		unlink( $this->dbaCdbFile );
 	}
 
 	/**
@@ -63,7 +63,7 @@ class CdbTest extends \PHPUnit_Framework_TestCase {
 			}
 		}
 
-		unset($data['']);
+		unset( $data[''] );
 
 		$w1->close();
 		$w2->close();
@@ -99,23 +99,23 @@ class CdbTest extends \PHPUnit_Framework_TestCase {
 		$r1 = new Reader\PHP( $this->phpCdbFile );
 		$r2 = new Reader\DBA( $this->dbaCdbFile );
 
-		$keys = array_keys($data);
-		$firstKey = array_shift($keys);
+		$keys = array_keys( $data );
+		$firstKey = array_shift( $keys );
 
-		$this->assertTrue($r1->exists($firstKey), 'PHP entry exists');
-		$this->assertTrue($r2->exists($firstKey), 'DBA entry exists');
-		$this->assertFalse($r1->exists(-1), 'PHP entry doesn\'t exists');
-		$this->assertFalse($r2->exists(-1), 'DBA entry doesn\'t exists');
+		$this->assertTrue( $r1->exists( $firstKey ), 'PHP entry exists' );
+		$this->assertTrue( $r2->exists( $firstKey ), 'DBA entry exists' );
+		$this->assertFalse( $r1->exists( -1 ), 'PHP entry doesn\'t exists' );
+		$this->assertFalse( $r2->exists( -1 ), 'DBA entry doesn\'t exists' );
 
 		$firstKey1 = $r1->firstkey();
 		$firstKey2 = $r2->firstkey();
 
-		$this->assertEquals($firstKey1, $firstKey, 'PHP Match first key');
-		$this->assertEquals($firstKey2, $firstKey, 'DBA Match first key');
+		$this->assertEquals( $firstKey1, $firstKey, 'PHP Match first key' );
+		$this->assertEquals( $firstKey2, $firstKey, 'DBA Match first key' );
 
-		unset($data[$firstKey]);
-		for ($j = 0, $max = count($data); $j < $max; $j++) {
-			$this->assertEquals($r2->nextkey(), $r1->nextkey(), 'nextkey match');
+		unset( $data[$firstKey] );
+		for ( $j = 0, $max = count( $data ); $j < $max; $j++ ) {
+			$this->assertEquals( $r2->nextkey(), $r1->nextkey(), 'nextkey match' );
 		}
 	}
 

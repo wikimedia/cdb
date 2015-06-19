@@ -1,34 +1,36 @@
 {
-    "name": "wikimedia/cdb",
-    "description": "Constant Database (CDB) wrapper library for PHP. Provides pure-PHP fallback when dba_* functions are absent.",
-    "license": "GPL-2.0",
-    "homepage": "https://www.mediawiki.org/wiki/CDB",
-    "authors": [
-        {
-            "name": "Tim Starling",
-            "email": "tstarling@wikimedia.org"
-        },
-        {
-            "name": "Chad Horohoe",
-            "email": "chad@wikimedia.org"
-        }
-    ],
-    "autoload": {
-        "classmap": ["src/"]
-    },
-    "require": {
-        "php": ">=5.3.2"
-    },
-    "require-dev": {
-        "jakub-onderka/php-parallel-lint": "0.8.*",
-        "phpunit/phpunit": "4.6.*",
-        "mediawiki/mediawiki-codesniffer": "0.2.0"
-    },
-    "scripts": {
-        "test": [
-            "parallel-lint . --exclude vendor",
-            "phpunit $PHPUNIT_ARGS",
-            "phpcs -p"
-        ]
-    }
+	"name": "wikimedia/cdb",
+	"description": "Constant Database (CDB) wrapper library for PHP. Provides pure-PHP fallback when dba_* functions are absent.",
+	"license": "GPL-2.0",
+	"homepage": "https://www.mediawiki.org/wiki/CDB",
+	"authors": [
+		{
+			"name": "Tim Starling",
+			"email": "tstarling@wikimedia.org"
+		},
+		{
+			"name": "Chad Horohoe",
+			"email": "chad@wikimedia.org"
+		}
+	],
+	"autoload": {
+		"classmap": [
+			"src/"
+		]
+	},
+	"require": {
+		"php": ">=5.3.2"
+	},
+	"require-dev": {
+		"jakub-onderka/php-parallel-lint": "0.9",
+		"phpunit/phpunit": "4.6.*",
+		"mediawiki/mediawiki-codesniffer": "0.3.0"
+	},
+	"scripts": {
+		"test": [
+			"parallel-lint . --exclude vendor",
+			"phpunit $PHPUNIT_ARGS",
+			"phpcs -p"
+		]
+	}
 }
