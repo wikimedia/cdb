@@ -47,6 +47,10 @@ class CdbTest extends \PHPUnit_Framework_TestCase {
 		return $s;
 	}
 
+	/**
+	 * @covers Cdb\Reader\PHP
+	 * @covers Cdb\Reader\DBA
+	 */
 	public function testCdbWrite() {
 		$w1 = new Writer\PHP( $this->phpCdbFile );
 		$w2 = new Writer\DBA( $this->dbaCdbFile );
