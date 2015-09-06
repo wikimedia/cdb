@@ -11,6 +11,10 @@
 		{
 			"name": "Chad Horohoe",
 			"email": "chad@wikimedia.org"
+		},
+		{
+			"name": "Ori Livneh",
+			"email": "ori@wikimedia.org"
 		}
 	],
 	"autoload": {
