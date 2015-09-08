@@ -46,7 +46,16 @@ class PHP extends Reader {
 	protected $dataLen;
 
 	/* reset by firstkey() */
-	protected $pos = 2048;
+	protected $keyIterPos = 2048;
+
+	/* data buffer */
+	protected $buf;
+
+	/* file offset where data buffer starts */
+	protected $bufStart;
+
+	/* file handle position indicator */
+	protected $filePos = 2048;
 
 	/**
 	 * @param string $fileName
@@ -91,8 +100,6 @@ class PHP extends Reader {
 	 * @return string
 	 */
 	protected function read( $start, $len ) {
-		static $buf, $bufStart, $pos = 2048;
-
 		$end = $start + $len;
 
 		// The first 2048 bytes are the lookup table, which is read into
@@ -103,8 +110,8 @@ class PHP extends Reader {
 
 		// Read data from the internal buffer first.
 		$bytes = '';
-		if ( $buf && $start >= $bufStart ) {
-			$bytes .= substr( $buf, $start - $bufStart, $len );
+		if ( $this->buf && $start >= $this->bufStart ) {
+			$bytes .= substr( $this->buf, $start - $this->bufStart, $len );
 			$bytesRead = strlen( $bytes );
 			$len -= $bytesRead;
 			$start += $bytesRead;
@@ -119,7 +126,7 @@ class PHP extends Reader {
 		// Many reads are sequential, so the file position indicator may
 		// already be in the right place, in which case we can avoid the
 		// call to fseek().
-		if ( $start !== $pos ) {
+		if ( $start !== $this->filePos ) {
 			if ( fseek( $this->handle, $start ) === -1 ) {
 				// This can easily happen if the internal pointers are incorrect
 				throw new Exception(
@@ -132,13 +139,15 @@ class PHP extends Reader {
 			$buf = '';
 		}
 
-		$bufStart = $start;
-		$pos = $end;
 		$bytes .= substr( $buf, 0, $len );
 		if ( strlen( $bytes ) !== $len + $bytesRead ) {
 			throw new Exception(
 				'Read from CDB file failed, file "' . $this->fileName . '" may be corrupted.' );
 		}
+
+		$this->filePos = $end;
+		$this->bufStart = $start;
+		$this->buf = $buf;
 
 		return $bytes;
 	}
@@ -250,15 +259,15 @@ class PHP extends Reader {
 	}
 
 	public function firstkey() {
-		$this->pos = 2048;
+		$this->keyIterPos = 2048;
 		return $this->nextkey();
 	}
 
 	public function nextkey() {
-		$keyLen = $this->readInt31( $this->pos );
-		$dataLen = $this->readInt31( $this->pos + 4 );
-		$key = $this->read( $this->pos + 8, $keyLen );
-		$this->pos += 8 + $keyLen + $dataLen;
+		$keyLen = $this->readInt31( $this->keyIterPos );
+		$dataLen = $this->readInt31( $this->keyIterPos + 4 );
+		$key = $this->read( $this->keyIterPos + 8, $keyLen );
+		$this->keyIterPos += 8 + $keyLen + $dataLen;
 
 		return $key;
 	}
