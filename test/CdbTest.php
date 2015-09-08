@@ -38,7 +38,7 @@ class CdbTest extends \PHPUnit_Framework_TestCase {
 	 * @return string
 	 */
 	private static function randomString() {
-		$len = mt_rand( 0, 10 );
+		$len = mt_rand( 1, 10 );
 		$s = '';
 		for ( $j = 0; $j < $len; $j++ ) {
 			$s .= chr( mt_rand( 0, 255 ) );
@@ -67,8 +67,6 @@ class CdbTest extends \PHPUnit_Framework_TestCase {
 			}
 		}
 
-		unset( $data[''] );
-
 		$w1->close();
 		$w2->close();
 
@@ -82,10 +80,6 @@ class CdbTest extends \PHPUnit_Framework_TestCase {
 		$r2 = new Reader\DBA( $this->dbaCdbFile );
 
 		foreach ( $data as $key => $value ) {
-			if ( $key === '' ) {
-				// Known bug
-				continue;
-			}
 			$v1 = $r1->get( $key );
 			$v2 = $r2->get( $key );
 
