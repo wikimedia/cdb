@@ -167,13 +167,33 @@ class PHP extends Reader {
 	 * @return int
 	 */
 	protected function readInt32( $pos = 0 ) {
+		static $lookups;
+
+		if ( !$lookups ) {
+			$lookups = array();
+			for ( $i = 1; $i < 256; $i++ ) {
+				$lookups[ chr( $i ) ] = $i;
+			}
+		}
+
 		$buf = $this->read( $pos, 4 );
-		return (
-			  ord( $buf[ 0 ] )         |
-			( ord( $buf[ 1 ] ) <<  8 ) |
-			( ord( $buf[ 2 ] ) << 16 ) |
-			( ord( $buf[ 3 ] ) << 24 )
-		);
+
+		$rv = 0;
+
+		if ( $buf[0] !== "\x0" ) {
+			$rv = $lookups[ $buf[0] ];
+		}
+		if ( $buf[1] !== "\x0" ) {
+			$rv |= ( $lookups[ $buf[1] ] << 8 );
+		}
+		if ( $buf[2] !== "\x0" ) {
+			$rv |= ( $lookups[ $buf[2] ] << 16 );
+		}
+		if ( $buf[3] !== "\x0" ) {
+			$rv |= ( $lookups[ $buf[3] ] << 24 );
+		}
+
+		return $rv;
 	}
 
 	/**
