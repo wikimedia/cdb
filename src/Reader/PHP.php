@@ -33,33 +33,36 @@ use Cdb\Util;
  */
 class PHP extends Reader {
 
-	/** The filename */
+	/** @var string The file name of the CDB file. **/
 	protected $fileName;
 
-	/** The CDB file's lookup table **/
+	/** @var string First 2048b of CDB file, containing the hash table. **/
 	protected $hashTable;
 
-	/* initialized if find() returns true */
+	/** @var int Offset in file where value of found key starts. **/
 	protected $dataPos;
 
-	/* initialized if find() returns true */
+	/** @var int Byte length of found key's value. **/
 	protected $dataLen;
 
-	/* reset by firstkey() */
+	/** @var int File position indicator when iterating over keys. **/
 	protected $keyIterPos = 2048;
 
-	/* data buffer */
+	/** @var string Read buffer for CDB file. **/
 	protected $buf;
 
-	/* file offset where data buffer starts */
+	/** @var int File offset where read buffer starts. **/
 	protected $bufStart;
 
-	/* file handle position indicator */
+	/** @var int File handle position indicator **/
 	protected $filePos = 2048;
 
 	/**
+	 * Constructor.
+	 *
 	 * @param string $fileName
-	 * @throws Exception
+	 * @throws Exception If CDB file cannot be opened or if it contains fewer
+	 *   than 2048 bytes of data.
 	 */
 	public function __construct( $fileName ) {
 		$this->fileName = $fileName;
@@ -73,6 +76,9 @@ class PHP extends Reader {
 		}
 	}
 
+	/**
+	 * Close the handle on the CDB file.
+	 */
 	public function close() {
 		if ( isset( $this->handle ) ) {
 			fclose( $this->handle );
@@ -81,8 +87,10 @@ class PHP extends Reader {
 	}
 
 	/**
+	 * Get the value of a key.
+	 *
 	 * @param mixed $key
-	 * @return bool|string
+	 * @return bool|string The key's value or false if not found.
 	 */
 	public function get( $key ) {
 		// strval is required
@@ -94,10 +102,12 @@ class PHP extends Reader {
 	}
 
 	/**
-	 * @throws Exception
-	 * @param int $start
-	 * @param int $len
-	 * @return string
+	 * Read data from the CDB file.
+	 *
+	 * @throws Exception When attempting to read past the end of the file.
+	 * @param int $start Start reading from this position.
+	 * @param int $len Number of bytes to read.
+	 * @return string Read data.
 	 */
 	protected function read( $start, $len ) {
 		$end = $start + $len;
@@ -155,8 +165,8 @@ class PHP extends Reader {
 	/**
 	 * Unpack an unsigned integer and throw an exception if it needs more than 31 bits.
 	 *
-	 * @param int $pos
-	 * @throws Exception
+	 * @param int $pos Position to read from.
+	 * @throws Exception When the integer cannot be represented in 31 bits.
 	 * @return int
 	 */
 	protected function readInt31( $pos = 0 ) {
@@ -170,7 +180,7 @@ class PHP extends Reader {
 	}
 
 	/**
-	 * Unpack a 32-bit integer
+	 * Unpack a 32-bit integer.
 	 *
 	 * @param int $pos
 	 * @return int
@@ -206,8 +216,12 @@ class PHP extends Reader {
 	}
 
 	/**
+	 * Search the CDB file for a key.
+	 *
+	 * Sets `dataLen` and `dataPos` properties if successful.
+	 *
 	 * @param string $key
-	 * @return bool
+	 * @return bool Whether the key was found.
 	 */
 	protected function find( $key ) {
 		$keyLen = strlen( $key );
@@ -254,15 +268,31 @@ class PHP extends Reader {
 		return false;
 	}
 
+	/**
+	 * Check if a key exists in the CDB file.
+	 *
+	 * @param string $key
+	 * @return bool Whether the key exists.
+	 */
 	public function exists( $key ) {
 		return $this->find( strval( $key ) );
 	}
 
+	/**
+	 * Get the first key from the CDB file and reset the key iterator.
+	 *
+	 * @return string Key.
+	 */
 	public function firstkey() {
 		$this->keyIterPos = 2048;
 		return $this->nextkey();
 	}
 
+	/**
+	 * Get the next key from the CDB file.
+	 *
+	 * @return string Key.
+	 */
 	public function nextkey() {
 		$keyLen = $this->readInt31( $this->keyIterPos );
 		$dataLen = $this->readInt31( $this->keyIterPos + 4 );
