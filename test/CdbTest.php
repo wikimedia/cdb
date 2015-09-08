@@ -86,9 +86,8 @@ class CdbTest extends \PHPUnit_Framework_TestCase {
 			$v1 = $v1 === false ? '(not found)' : $v1;
 			$v2 = $v2 === false ? '(not found)' : $v2;
 
-			# cdbAssert( 'Mismatch', $key, $v1, $v2 );
-			$this->cdbAssert( "PHP error", $key, $v1, $value );
-			$this->cdbAssert( "DBA error", $key, $v2, $value );
+			$this->cdbAssert( 'PHP error', $key, $value, $v1 );
+			$this->cdbAssert( 'DBA error', $key, $value, $v2 );
 		}
 
 		$r1->close();
@@ -117,10 +116,10 @@ class CdbTest extends \PHPUnit_Framework_TestCase {
 		}
 	}
 
-	private function cdbAssert( $msg, $key, $v1, $v2 ) {
+	private function cdbAssert( $msg, $key, $expected, $actual ) {
 		$this->assertSame(
-			$v2,
-			$v1,
+			$expected,
+			$actual,
 			$msg . ', k=' . bin2hex( $key )
 		);
 	}
