@@ -118,7 +118,7 @@ class CdbTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	private function cdbAssert( $msg, $key, $v1, $v2 ) {
-		$this->assertEquals(
+		$this->assertSame(
 			$v2,
 			$v1,
 			$msg . ', k=' . bin2hex( $key )
