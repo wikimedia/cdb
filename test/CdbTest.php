@@ -59,10 +59,10 @@ class CdbTest extends \PHPUnit_Framework_TestCase {
 		for ( $i = 0; $i < 1000; $i++ ) {
 			$key = self::randomString();
 			$value = self::randomString();
-			$w1->set( $key, $value );
-			$w2->set( $key, $value );
 
 			if ( !isset( $data[$key] ) ) {
+				$w1->set( $key, $value );
+				$w2->set( $key, $value );
 				$data[$key] = $value;
 			}
 		}
