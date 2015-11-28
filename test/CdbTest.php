@@ -114,6 +114,9 @@ class CdbTest extends \PHPUnit_Framework_TestCase {
 		for ( $j = 0, $max = count( $data ); $j < $max; $j++ ) {
 			$this->assertEquals( $r2->nextkey(), $r1->nextkey(), 'nextkey match' );
 		}
+
+		$this->assertFalse( $r1->nextkey() );
+		$this->assertFalse( $r2->nextkey() );
 	}
 
 	private function cdbAssert( $msg, $key, $expected, $actual ) {
