@@ -3,7 +3,7 @@
 	beStrictAboutOutputDuringTests="true">
 	<testsuites>
 		<testsuite name="CDB Tests">
-			<directory>./test</directory>
+			<directory>./tests</directory>
 		</testsuite>
 	</testsuites>
 	<filter>
