@@ -15,6 +15,9 @@
 		{
 			"name": "Ori Livneh",
 			"email": "ori@wikimedia.org"
+		},
+		{
+			"name": "Daniel Kinzler"
 		}
 	],
 	"autoload": {
@@ -23,7 +26,8 @@
 		]
 	},
 	"require": {
-		"php": ">=5.3.2"
+		"php": ">=5.3.2",
+		"wikimedia/assert": "~0.2.2"
 	},
 	"require-dev": {
 		"jakub-onderka/php-parallel-lint": "0.9",

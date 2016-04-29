@@ -7,6 +7,7 @@ use Cdb\Writer;
 
 /**
  * Test the CDB reader/writer
+ * @group Cdb
  * @covers Cdb\Writer\PHP
  * @covers Cdb\Writer\DBA
  */
