@@ -52,9 +52,9 @@ class Hash extends Reader {
 	 * @param string[] $data An associative PHP array.
 	 */
 	public function __construct( $data ) {
-		Assert::parameterType( 'array', $data, '$data' );
-		Assert::parameterElementType( 'string', $data, '$data' );
-
+		if ( !is_array( $data ) ) {
+			throw new \InvalidArgumentException( __METHOD__ . ': "$data" must be an array.' );
+		}
 		$this->data = $data;
 	}
 

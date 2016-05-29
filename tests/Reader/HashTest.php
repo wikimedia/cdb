@@ -9,20 +9,9 @@ use Cdb\Reader\Hash;
  */
 class HashTest extends \PHPUnit_Framework_TestCase {
 
-	public function provideConstructor_fail() {
-		return array(
-			array( 'Foo' ),
-			array( array( "x" => 1, "y" => 2 ) ),
-		);
-	}
-
-	/**
-	 * @dataProvider provideConstructor_fail
-	 */
-	public function testConstructor_fail( $data ) {
+	public function testConstructor_fail() {
 		$this->setExpectedException( 'InvalidArgumentException' );
-
-		new Hash( $data );
+		new Hash( 'not an array' );
 	}
 
 	public function testClose() {
