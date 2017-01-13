@@ -3,7 +3,6 @@
 namespace Cdb\Reader;
 
 use Cdb\Reader;
-use Wikimedia\Assert\Assert;
 
 /**
  * Hash implements the CdbReader interface based on an associative
