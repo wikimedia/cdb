@@ -1,6 +1,5 @@
 language: php
 php:
-  - "5.3.3"
   - "5.3"
   - "5.4"
   - "5.5"
@@ -10,8 +9,6 @@ sudo: false
 env:
   global:
     - COMPOSER_DISABLE_XDEBUG_WARN=1
-before_install:
-  - if [ "$TRAVIS_PHP_VERSION" = "5.3.3" ]; then composer config disable-tls true; composer config secure-http false; fi
 install:
   - composer install
 script:

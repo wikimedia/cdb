@@ -51,7 +51,6 @@ abstract class Writer {
 	 * The user must have write access to the directory, for temporary file creation.
 	 *
 	 * @param string $fileName
-	 *
 	 * @return Writer
 	 */
 	public static function open( $fileName ) {

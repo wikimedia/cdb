@@ -7,9 +7,6 @@ use Cdb\Writer;
 
 /**
  * Test the CDB reader/writer
- * @group Cdb
- * @covers Cdb\Writer\PHP
- * @covers Cdb\Writer\DBA
  */
 class CdbTest extends \PHPUnit_Framework_TestCase {
 	/** @var string */
@@ -29,9 +26,9 @@ class CdbTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	protected function tearDown() {
-		parent::tearDown();
 		unlink( $this->phpCdbFile );
 		unlink( $this->dbaCdbFile );
+		parent::tearDown();
 	}
 
 	/**
@@ -48,11 +45,43 @@ class CdbTest extends \PHPUnit_Framework_TestCase {
 		return $s;
 	}
 
+	private function cdbAssert( $msg, $key, $expected, $actual ) {
+		$this->assertSame(
+			$expected,
+			$actual,
+			$msg . ', k=' . bin2hex( $key )
+		);
+	}
+
 	/**
+	 * @covers Cdb\Reader::open
+	 */
+	public function testReaderOpen() {
+		$this->assertInstanceOf(
+			Reader::class,
+			Reader::open( $this->phpCdbFile )
+		);
+	}
+
+	/**
+	 * @covers Cdb\Writer::open
+	 */
+	public function testWriterOpen() {
+		$this->assertInstanceOf(
+			Writer::class,
+			Writer::open( $this->phpCdbFile )
+		);
+	}
+
+	/**
+	 * @covers Cdb\Util
+	 * @covers Cdb\Writer
+	 * @covers Cdb\Writer\PHP
+	 * @covers Cdb\Writer\DBA
 	 * @covers Cdb\Reader\PHP
 	 * @covers Cdb\Reader\DBA
 	 */
-	public function testCdbWrite() {
+	public function testReadWrite() {
 		$w1 = new Writer\PHP( $this->phpCdbFile );
 		$w2 = new Writer\DBA( $this->dbaCdbFile );
 
@@ -104,6 +133,8 @@ class CdbTest extends \PHPUnit_Framework_TestCase {
 		$this->assertTrue( $r2->exists( $firstKey ), 'DBA entry exists' );
 		$this->assertFalse( $r1->exists( -1 ), 'PHP entry doesn\'t exists' );
 		$this->assertFalse( $r2->exists( -1 ), 'DBA entry doesn\'t exists' );
+		$this->assertFalse( $r1->get( -1 ), 'PHP entry not found' );
+		$this->assertFalse( $r2->get( -1 ), 'DBA entry not found' );
 
 		$firstKey1 = $r1->firstkey();
 		$firstKey2 = $r2->firstkey();
@@ -120,11 +151,23 @@ class CdbTest extends \PHPUnit_Framework_TestCase {
 		$this->assertFalse( $r2->nextkey() );
 	}
 
-	private function cdbAssert( $msg, $key, $expected, $actual ) {
-		$this->assertSame(
-			$expected,
-			$actual,
-			$msg . ', k=' . bin2hex( $key )
+	/**
+	 * @covers Cdb\Writer\PHP::finish
+	 */
+	public function testEmpty() {
+		$w = new Writer\PHP( $this->phpCdbFile );
+		$this->assertSame( null, $w->close() );
+	}
+
+	/**
+	 * @covers Cdb\Writer::__destruct
+	 */
+	public function testDestruct() {
+		$w = new Writer\PHP( $this->phpCdbFile );
+		$this->assertInstanceOf(
+			Writer\PHP::class,
+			$w
 		);
+		$w = null;
 	}
 }

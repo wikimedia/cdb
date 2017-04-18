@@ -173,7 +173,12 @@ class PHP extends Writer {
 		// Excessively clever and indulgent code to simultaneously fill $packedTables
 		// with the packed hashtables, and adjust the elements of $starts
 		// to actually point to the starts instead of the ends.
-		$packedTables = array_fill( 0, $this->numentries, false );
+		if ( $this->numentries > 0 ) {
+			$packedTables = array_fill( 0, $this->numentries, false );
+		} else {
+			// array_fill(): Number of elements must be positive
+			$packedTables = array();
+		}
 		foreach ( $this->hplist as $item ) {
 			$packedTables[--$starts[255 & $item['h']]] = $item;
 		}

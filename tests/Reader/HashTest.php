@@ -4,7 +4,6 @@ namespace Cdb\Test\Reader;
 use Cdb\Reader\Hash;
 
 /**
- * @group Cdb
  * @covers Cdb\Reader\Hash
  */
 class HashTest extends \PHPUnit_Framework_TestCase {

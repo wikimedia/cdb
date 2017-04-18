@@ -30,14 +30,15 @@
 	},
 	"require-dev": {
 		"jakub-onderka/php-parallel-lint": "0.9",
-		"phpunit/phpunit": "4.6.*",
+		"phpunit/phpunit": "^4.8",
 		"mediawiki/mediawiki-codesniffer": "0.5.0"
 	},
 	"scripts": {
 		"test": [
 			"parallel-lint . --exclude vendor",
 			"phpunit $PHPUNIT_ARGS",
-			"phpcs -p"
-		]
+			"phpcs -p -s"
+		],
+		"cover": "phpunit --coverage-html coverage"
 	}
 }

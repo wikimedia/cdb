@@ -38,7 +38,6 @@ abstract class Reader {
 	 * Open a file and return a subclass instance
 	 *
 	 * @param string $fileName
-	 *
 	 * @return Reader
 	 */
 	public static function open( $fileName ) {
@@ -51,6 +50,7 @@ abstract class Reader {
 	 * Returns true if the native extension is available
 	 *
 	 * @return bool
+	 * @codeCoverageIgnore
 	 */
 	public static function haveExtension() {
 		if ( !function_exists( 'dba_handlers' ) ) {
