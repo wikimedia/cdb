@@ -52,7 +52,7 @@ class PHP extends Writer {
 			$this->throwException(
 				'Unable to open CDB file "' . $this->tmpFileName . '" for write.' );
 		}
-		$this->hplist = array();
+		$this->hplist = [];
 		$this->numentries = 0;
 		$this->pos = 2048; // leaving space for the pointer array, 256 * 8
 		if ( fseek( $this->handle, $this->pos ) == -1 ) {
@@ -122,10 +122,10 @@ class PHP extends Writer {
 	 * @param int $h
 	 */
 	protected function addend( $keylen, $datalen, $h ) {
-		$this->hplist[] = array(
+		$this->hplist[] = [
 			'h' => $h,
 			'p' => $this->pos
-		);
+		];
 
 		$this->numentries++;
 		$this->posplus( 8 );
@@ -163,7 +163,7 @@ class PHP extends Writer {
 		}
 
 		// Fill in $starts with the *end* indexes
-		$starts = array();
+		$starts = [];
 		$pos = 0;
 		for ( $i = 0; $i < 256; ++$i ) {
 			$pos += $counts[$i];
@@ -177,7 +177,7 @@ class PHP extends Writer {
 			$packedTables = array_fill( 0, $this->numentries, false );
 		} else {
 			// array_fill(): Number of elements must be positive
-			$packedTables = array();
+			$packedTables = [];
 		}
 		foreach ( $this->hplist as $item ) {
 			$packedTables[--$starts[255 & $item['h']]] = $item;
@@ -192,9 +192,9 @@ class PHP extends Writer {
 			$len = $count + $count;
 			$final .= pack( 'VV', $this->pos, $len );
 
-			$hashtable = array();
+			$hashtable = [];
 			for ( $u = 0; $u < $len; ++$u ) {
-				$hashtable[$u] = array( 'h' => 0, 'p' => 0 );
+				$hashtable[$u] = [ 'h' => 0, 'p' => 0 ];
 			}
 
 			// Fill the hashtable, using the next empty slot if the hashed slot

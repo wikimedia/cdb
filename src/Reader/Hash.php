@@ -61,7 +61,7 @@ class Hash extends Reader {
 	 * Close the file. Optional, you can just let the variable go out of scope.
 	 */
 	public function close() {
-		$this->data = array();
+		$this->data = [];
 		$this->keys = null;
 	}
 

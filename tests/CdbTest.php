@@ -85,7 +85,7 @@ class CdbTest extends \PHPUnit_Framework_TestCase {
 		$w1 = new Writer\PHP( $this->phpCdbFile );
 		$w2 = new Writer\DBA( $this->dbaCdbFile );
 
-		$data = array();
+		$data = [];
 		for ( $i = 0; $i < 1000; $i++ ) {
 			$key = self::randomString();
 			$value = self::randomString();

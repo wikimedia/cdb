@@ -14,31 +14,31 @@ class HashTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testClose() {
-		$reader = new Hash( array( 'foo' => 'FOO' ) );
+		$reader = new Hash( [ 'foo' => 'FOO' ] );
 		$reader->close();
 
 		$this->assertFalse( $reader->get( 'foo' ) );
 	}
 
 	public function testGet() {
-		$reader = new Hash( array( 'foo' => 'FOO' ) );
+		$reader = new Hash( [ 'foo' => 'FOO' ] );
 
 		$this->assertSame( 'FOO', $reader->get( 'foo' ) );
 		$this->assertFalse( $reader->get( 'xyz' ) );
 	}
 
 	public function testExists() {
-		$reader = new Hash( array( 'foo' => 'FOO' ) );
+		$reader = new Hash( [ 'foo' => 'FOO' ] );
 
 		$this->assertTrue( $reader->exists( 'foo' ) );
 		$this->assertFalse( $reader->exists( 'xyz' ) );
 	}
 
 	public function testFirstKey() {
-		$reader = new Hash( array(
+		$reader = new Hash( [
 			'one' => 'ONE',
 			'two' => 'TWO',
-		) );
+		] );
 
 		$this->assertSame( 'one', $reader->firstkey() );
 		$this->assertSame( 'one', $reader->firstkey() );
@@ -48,16 +48,16 @@ class HashTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testFirstKey_empty() {
-		$reader = new Hash( array() );
+		$reader = new Hash( [] );
 
 		$this->assertFalse( $reader->firstkey() );
 	}
 
 	public function testNextKey() {
-		$reader = new Hash( array(
+		$reader = new Hash( [
 			'one' => 'ONE',
 			'two' => 'TWO',
-		) );
+		] );
 
 		$this->assertSame( 'one', $reader->nextkey() );
 		$this->assertSame( 'two', $reader->nextkey() );

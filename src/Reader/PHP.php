@@ -192,7 +192,7 @@ class PHP extends Reader {
 		static $lookups;
 
 		if ( !$lookups ) {
-			$lookups = array();
+			$lookups = [];
 			for ( $i = 1; $i < 256; $i++ ) {
 				$lookups[ chr( $i ) ] = $i;
 			}
