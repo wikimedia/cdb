@@ -58,7 +58,7 @@ class CdbTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testReaderOpen() {
 		$this->assertInstanceOf(
-			'Cdb\Reader',
+			Reader::class,
 			Reader::open( $this->phpCdbFile )
 		);
 	}
@@ -68,7 +68,7 @@ class CdbTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testWriterOpen() {
 		$this->assertInstanceOf(
-			'Cdb\Writer',
+			Writer::class,
 			Writer::open( $this->phpCdbFile )
 		);
 	}
@@ -165,7 +165,7 @@ class CdbTest extends \PHPUnit_Framework_TestCase {
 	public function testDestruct() {
 		$w = new Writer\PHP( $this->phpCdbFile );
 		$this->assertInstanceOf(
-			'Cdb\Writer\PHP',
+			Writer\PHP::class,
 			$w
 		);
 		$w = null;
