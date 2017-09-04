@@ -291,7 +291,7 @@ class PHP extends Reader {
 
 		if ( !$this->keyIterStop ) {
 			$pos = INF;
-			for ( $i = 0; $i < 2048; $i+= 8 ) {
+			for ( $i = 0; $i < 2048; $i += 8 ) {
 				$pos = min( $this->readInt31( $i ), $pos );
 			}
 			$this->keyIterStop = $pos;
