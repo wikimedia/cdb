@@ -7,7 +7,7 @@ use Cdb\Reader\DBA;
 /**
  * @covers Cdb\Reader\DBA
  */
-class DBATest extends \PHPUnit_Framework_TestCase {
+class DBATest extends \PHPUnit\Framework\TestCase {
 
 	protected function setUp() {
 		parent::setUp();

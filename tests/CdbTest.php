@@ -8,7 +8,7 @@ use Cdb\Writer;
 /**
  * Test the CDB reader/writer
  */
-class CdbTest extends \PHPUnit_Framework_TestCase {
+class CdbTest extends \PHPUnit\Framework\TestCase {
 	/** @var string */
 	private $phpCdbFile, $dbaCdbFile;
 

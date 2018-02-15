@@ -6,7 +6,7 @@ use Cdb\Reader\PHP;
 /**
  * @covers Cdb\Reader\PHP
  */
-class PHPTest extends \PHPUnit_Framework_TestCase {
+class PHPTest extends \PHPUnit\Framework\TestCase {
 	/** @var string */
 	private $cdbFile;
 

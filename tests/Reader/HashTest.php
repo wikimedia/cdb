@@ -6,7 +6,7 @@ use Cdb\Reader\Hash;
 /**
  * @covers Cdb\Reader\Hash
  */
-class HashTest extends \PHPUnit_Framework_TestCase {
+class HashTest extends \PHPUnit\Framework\TestCase {
 
 	public function testConstructor_fail() {
 		$this->setExpectedException( 'InvalidArgumentException' );
