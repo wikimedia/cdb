@@ -1,6 +1,7 @@
 <?php
 namespace Cdb\Test;
 
+use Cdb\Exception;
 use Cdb\Reader;
 use Cdb\Reader\DBA;
 
@@ -17,7 +18,13 @@ class DBATest extends \PHPUnit\Framework\TestCase {
 	}
 
 	public function testConstructor() {
-		$this->setExpectedException( 'Cdb\Exception' );
+		if ( is_callable( [ $this, 'setExpectedException' ] ) ) {
+			// PHPUnit 4.8
+			$this->setExpectedException( Exception::class );
+		} else {
+			// PHPUnit 6+
+			$this->expectException( Exception::class );
+		}
 		// Silence native error from dba_open()
 		// @codingStandardsIgnoreLine Generic.PHP.NoSilencedErrors
 		@new DBA( '/tmp/non-exist' );

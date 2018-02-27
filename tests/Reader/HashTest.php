@@ -9,7 +9,13 @@ use Cdb\Reader\Hash;
 class HashTest extends \PHPUnit\Framework\TestCase {
 
 	public function testConstructor_fail() {
-		$this->setExpectedException( 'InvalidArgumentException' );
+		if ( is_callable( [ $this, 'setExpectedException' ] ) ) {
+			// PHPUnit 4.8
+			$this->setExpectedException( \InvalidArgumentException::class );
+		} else {
+			// PHPUnit 6+
+			$this->expectException( \InvalidArgumentException::class );
+		}
 		new Hash( 'not an array' );
 	}
 
