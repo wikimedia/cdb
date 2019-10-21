@@ -12,7 +12,7 @@ class CdbTest extends \PHPUnit\Framework\TestCase {
 	/** @var string */
 	private $phpCdbFile, $dbaCdbFile;
 
-	protected function setUp() {
+	protected function setUp() : void {
 		parent::setUp();
 		if ( !Reader::haveExtension() ) {
 			$this->markTestSkipped( 'Native CDB support is not available.' );
@@ -25,7 +25,7 @@ class CdbTest extends \PHPUnit\Framework\TestCase {
 		$this->dbaCdbFile = tempnam( $temp, get_class( $this ) . '_' );
 	}
 
-	protected function tearDown() {
+	protected function tearDown() : void {
 		unlink( $this->phpCdbFile );
 		unlink( $this->dbaCdbFile );
 		parent::tearDown();
