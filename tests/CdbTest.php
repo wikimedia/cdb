@@ -156,7 +156,7 @@ class CdbTest extends \PHPUnit\Framework\TestCase {
 	 */
 	public function testEmpty() {
 		$w = new Writer\PHP( $this->phpCdbFile );
-		$this->assertSame( null, $w->close() );
+		$this->assertNull( $w->close() );
 	}
 
 	/**
