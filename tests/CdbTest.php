@@ -1,13 +1,9 @@
 <?php
-
 namespace Cdb\Test;
 
 use Cdb\Reader;
 use Cdb\Writer;
 
-/**
- * Test the CDB reader/writer
- */
 class CdbTest extends \PHPUnit\Framework\TestCase {
 	/** @var string */
 	private $phpCdbFile, $dbaCdbFile;
