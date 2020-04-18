@@ -27,6 +27,7 @@ use Cdb\Writer;
  */
 class DBA extends Writer {
 	/**
+	 * @param string $fileName
 	 * @throws Exception
 	 */
 	public function __construct( $fileName ) {
