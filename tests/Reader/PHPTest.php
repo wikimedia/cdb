@@ -27,13 +27,7 @@ class PHPTest extends \PHPUnit\Framework\TestCase {
 
 	// File can't be opened
 	public function testConstructorOpen() {
-		if ( is_callable( [ $this, 'setExpectedException' ] ) ) {
-			// PHPUnit 4.8
-			$this->setExpectedException( Exception::class );
-		} else {
-			// PHPUnit 6+
-			$this->expectException( Exception::class );
-		}
+		$this->expectException( Exception::class );
 		// Ignore native error from fopen()
 		// @codingStandardsIgnoreLine Generic.PHP.NoSilencedErrors
 		@new PHP( '/tmp/non-exist' );
@@ -41,13 +35,7 @@ class PHPTest extends \PHPUnit\Framework\TestCase {
 
 	// File contains fewer than 2048 bytes
 	public function testConstructorRead() {
-		if ( is_callable( [ $this, 'setExpectedException' ] ) ) {
-			// PHPUnit 4.8
-			$this->setExpectedException( Exception::class );
-		} else {
-			// PHPUnit 6+
-			$this->expectException( Exception::class );
-		}
+		$this->expectException( Exception::class );
 		new PHP( $this->cdbFile );
 	}
 }

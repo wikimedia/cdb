@@ -18,13 +18,7 @@ class DBATest extends \PHPUnit\Framework\TestCase {
 	}
 
 	public function testConstructor() {
-		if ( is_callable( [ $this, 'setExpectedException' ] ) ) {
-			// PHPUnit 4.8
-			$this->setExpectedException( Exception::class );
-		} else {
-			// PHPUnit 6+
-			$this->expectException( Exception::class );
-		}
+		$this->expectException( Exception::class );
 		// Silence native error from dba_open()
 		// @codingStandardsIgnoreLine Generic.PHP.NoSilencedErrors
 		@new DBA( '/tmp/non-exist' );
