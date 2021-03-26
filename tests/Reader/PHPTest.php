@@ -29,7 +29,7 @@ class PHPTest extends \PHPUnit\Framework\TestCase {
 	public function testConstructorOpen() {
 		$this->expectException( Exception::class );
 		// Ignore native error from fopen()
-		// @codingStandardsIgnoreLine Generic.PHP.NoSilencedErrors
+		// phpcs:ignore Generic.PHP.NoSilencedErrors
 		@new PHP( '/tmp/non-exist' );
 	}
 

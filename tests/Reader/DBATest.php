@@ -20,7 +20,7 @@ class DBATest extends \PHPUnit\Framework\TestCase {
 	public function testConstructor() {
 		$this->expectException( Exception::class );
 		// Silence native error from dba_open()
-		// @codingStandardsIgnoreLine Generic.PHP.NoSilencedErrors
+		// phpcs:ignore Generic.PHP.NoSilencedErrors
 		@new DBA( '/tmp/non-exist' );
 	}
 }
