@@ -11,7 +11,7 @@ class PHPTest extends \PHPUnit\Framework\TestCase {
 	/** @var string */
 	private $cdbFile;
 
-	protected function setUp() : void {
+	protected function setUp(): void {
 		parent::setUp();
 		$temp = sys_get_temp_dir();
 		if ( !is_writable( $temp ) ) {
@@ -20,7 +20,7 @@ class PHPTest extends \PHPUnit\Framework\TestCase {
 		$this->cdbFile = tempnam( $temp, get_class( $this ) . '_' );
 	}
 
-	protected function tearDown() : void {
+	protected function tearDown(): void {
 		unlink( $this->cdbFile );
 		parent::tearDown();
 	}

@@ -10,7 +10,7 @@ use Cdb\Reader\DBA;
  */
 class DBATest extends \PHPUnit\Framework\TestCase {
 
-	protected function setUp() : void {
+	protected function setUp(): void {
 		parent::setUp();
 		if ( !Reader::haveExtension() ) {
 			$this->markTestSkipped( 'Native CDB support is not available.' );

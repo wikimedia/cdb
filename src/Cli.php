@@ -76,7 +76,7 @@ final class Cli {
 		}
 	}
 
-	private function runGet() : void {
+	private function runGet(): void {
 		if ( count( $this->params ) !== 1 ) {
 			$this->error( "The 'get' action requires one parameter." );
 			return;
@@ -92,7 +92,7 @@ final class Cli {
 		$this->output( $value );
 	}
 
-	private function runList() : void {
+	private function runList(): void {
 		if ( count( $this->params ) > 1 ) {
 			$this->error( "The 'list' action accepts only one parameter." );
 			return;
@@ -112,7 +112,7 @@ final class Cli {
 		}
 	}
 
-	private function runMatch() : void {
+	private function runMatch(): void {
 		if ( count( $this->params ) !== 1 ) {
 			$this->error( "The 'match' action requires one parameter." );
 			return;
@@ -133,7 +133,7 @@ final class Cli {
 		}
 	}
 
-	private function help() : void {
+	private function help(): void {
 		$this->output( <<<TEXT
 usage: {$this->self} <file> [<action>=list] [<parameters...>]
 
@@ -146,17 +146,17 @@ TEXT
 		);
 	}
 
-	private function error( string $text ) : void {
+	private function error( string $text ): void {
 		$this->exitCode = 1;
 		$this->output( "\nerror: $text\n------\n" );
 		$this->help();
 	}
 
-	private function output( string $text ) : void {
+	private function output( string $text ): void {
 		fwrite( $this->out, $text . "\n" );
 	}
 
-	public function getExitCode() : int {
+	public function getExitCode(): int {
 		return $this->exitCode;
 	}
 }

@@ -10,7 +10,7 @@ class CliTest extends \PHPUnit\Framework\TestCase {
 	private const FIXTURE = __DIR__ . '/fixture/example.cdb';
 	private $out;
 
-	protected function setUp() : void {
+	protected function setUp(): void {
 		$this->out = fopen( 'php://memory', 'rw' );
 	}
 
