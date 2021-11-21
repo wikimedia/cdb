@@ -77,7 +77,7 @@ abstract class Writer {
 	abstract public function close();
 
 	/**
-	 * If the object goes out of scope, close it for sanity
+	 * If the object goes out of scope, close it
 	 */
 	public function __destruct() {
 		if ( isset( $this->handle ) ) {
