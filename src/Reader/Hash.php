@@ -1,6 +1,5 @@
 <?php
 /**
- * @copyright
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
@@ -26,17 +25,13 @@ use Cdb\Reader;
  * PHP array (a.k.a "hash").
  */
 class Hash extends Reader {
-
-	/**
-	 * @var string
-	 */
+	/** @var string $data */
 	private $data;
 
 	/**
-	 * A queue of keys to return from nextkey(),
-	 * initialized by firstkey();
+	 * A queue of keys to return from nextkey(), initialized by firstkey();
 	 *
-	 * @var string[]|null
+	 * @var string[]|null $keys
 	 */
 	private $keys = null;
 

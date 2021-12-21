@@ -1,6 +1,5 @@
 <?php
 /**
- * @copyright
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
@@ -23,22 +22,22 @@ namespace Cdb;
  * @internal For use by bin/cdb only.
  */
 final class Cli {
-	/** @var int */
+	/** @var int $exitCode */
 	private $exitCode = 0;
 
-	/** @var resource */
+	/** @var resource $out */
 	private $out;
 
-	/** @var string */
+	/** @var string $self */
 	private $self;
 
-	/** @var string */
+	/** @var string $filepath */
 	private $filepath;
 
-	/** @var string */
+	/** @var string $action */
 	private $action;
 
-	/** @var string[] */
+	/** @var string[] $params */
 	private $params;
 
 	/**
@@ -53,6 +52,7 @@ final class Cli {
 		$this->params = array_slice( $argv, 3 );
 	}
 
+	/** Main method. */
 	public function run() {
 		try {
 			switch ( $this->action ) {
@@ -156,6 +156,11 @@ TEXT
 		fwrite( $this->out, $text . "\n" );
 	}
 
+	/**
+	 * Get exit status code for the process.
+	 *
+	 * @return int
+	 */
 	public function getExitCode(): int {
 		return $this->exitCode;
 	}

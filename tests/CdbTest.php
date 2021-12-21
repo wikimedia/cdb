@@ -5,8 +5,8 @@ use Cdb\Reader;
 use Cdb\Writer;
 
 class CdbTest extends \PHPUnit\Framework\TestCase {
-	/** @var string */
-	private $phpCdbFile, $dbaCdbFile;
+	private $phpCdbFile;
+	private $dbaCdbFile;
 
 	protected function setUp(): void {
 		parent::setUp();

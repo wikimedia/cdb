@@ -1,6 +1,5 @@
 <?php
 /**
- * @copyright
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
@@ -30,37 +29,61 @@ use Cdb\Util;
  * appears in PHP 5.3.
  */
 class PHP extends Reader {
-
-	/** @var string The file name of the CDB file. */
+	/**
+	 * The file name of the CDB file.
+	 * @var string $fileName
+	 */
 	protected $fileName;
 
-	/** @var string First 2048b of CDB file, containing pointers to hash table. */
+	/**
+	 * @var string $index
+	 * First 2048 bytes of CDB file, containing pointers to hash table.
+	 */
 	protected $index;
 
-	/** @var int Offset in file where value of found key starts. */
+	/**
+	 * Offset in file where value of found key starts.
+	 * @var int $dataPos
+	 */
 	protected $dataPos;
 
-	/** @var int Byte length of found key's value. */
+	/**
+	 * Byte length of found key's value.
+	 * @var int $dataLen
+	 */
 	protected $dataLen;
 
-	/** @var int File position indicator when iterating over keys. */
+	/**
+	 * File position indicator when iterating over keys.
+	 * @var int $keyIterPos
+	 */
 	protected $keyIterPos = 2048;
 
-	/** @var int Offset in file where hash tables start. */
+	/**
+	 * Offset in file where hash tables start.
+	 * @var int $keyIterStop
+	 */
 	protected $keyIterStop;
 
-	/** @var string Read buffer for CDB file. */
+	/**
+	 * Read buffer for CDB file.
+	 * @var string $buf
+	 */
 	protected $buf;
 
-	/** @var int File offset where read buffer starts. */
+	/**
+	 * File offset where read buffer starts.
+	 * @var int $bufStart
+	 */
 	protected $bufStart;
 
-	/** @var int File handle position indicator */
+	/**
+	 * File handle position indicator.
+	 * @var int $filePos
+	 */
 	protected $filePos = 2048;
 
 	/**
-	 * Constructor.
-	 *
 	 * @param string $fileName
 	 * @throws Exception If CDB file cannot be opened or if it contains fewer
 	 *   than 2048 bytes of data.
