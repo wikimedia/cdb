@@ -26,11 +26,6 @@ namespace Cdb;
  */
 abstract class Reader {
 	/**
-	 * The file handle
-	 */
-	protected $handle;
-
-	/**
 	 * Open a file and return a subclass instance
 	 *
 	 * @param string $fileName
@@ -61,13 +56,6 @@ abstract class Reader {
 	}
 
 	/**
-	 * Create the object and open the file
-	 *
-	 * @param string $fileName
-	 */
-	abstract public function __construct( $fileName );
-
-	/**
 	 * Close the file. Optional, you can just let the variable go out of scope.
 	 */
 	abstract public function close();
@@ -88,11 +76,15 @@ abstract class Reader {
 
 	/**
 	 * Fetch first key
+	 *
+	 * @return string|false
 	 */
 	abstract public function firstkey();
 
 	/**
 	 * Fetch next key
+	 *
+	 * @return string|false
 	 */
 	abstract public function nextkey();
 }

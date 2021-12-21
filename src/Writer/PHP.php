@@ -29,6 +29,11 @@ use Cdb\Writer;
  * appears in PHP 5.3.
  */
 class PHP extends Writer {
+	/**
+	 * The file handle
+	 */
+	protected $handle;
+
 	protected $hplist;
 
 	protected $numentries;
@@ -69,25 +74,22 @@ class PHP extends Writer {
 		$this->addend( strlen( $key ), strlen( $value ), Util::hash( $key ) );
 	}
 
-	/**
-	 * @throws Exception
-	 */
 	public function close() {
-		$this->finish();
-		if ( isset( $this->handle ) ) {
+		if ( $this->handle ) {
+			$this->finish();
 			fclose( $this->handle );
+
+			if ( $this->isWindows() && file_exists( $this->realFileName ) ) {
+				unlink( $this->realFileName );
+			}
+			if ( !rename( $this->tmpFileName, $this->realFileName ) ) {
+				$this->throwException( 'Unable to move the new CDB file into place.' );
+			}
 		}
-		if ( $this->isWindows() && file_exists( $this->realFileName ) ) {
-			unlink( $this->realFileName );
-		}
-		if ( !rename( $this->tmpFileName, $this->realFileName ) ) {
-			$this->throwException( 'Unable to move the new CDB file into place.' );
-		}
-		unset( $this->handle );
+		$this->handle = null;
 	}
 
 	/**
-	 * @throws Exception
 	 * @param string $buf
 	 */
 	protected function write( $buf ) {
@@ -98,7 +100,6 @@ class PHP extends Writer {
 	}
 
 	/**
-	 * @throws Exception
 	 * @param int $len
 	 */
 	protected function posplus( $len ) {
@@ -128,7 +129,6 @@ class PHP extends Writer {
 	}
 
 	/**
-	 * @throws Exception
 	 * @param int $keylen
 	 * @param int $datalen
 	 */
@@ -143,9 +143,6 @@ class PHP extends Writer {
 		$this->write( $buf );
 	}
 
-	/**
-	 * @throws Exception
-	 */
 	protected function finish() {
 		// Hack for DBA cross-check
 		$this->hplist = array_reverse( $this->hplist );
@@ -194,6 +191,7 @@ class PHP extends Writer {
 			// Fill the hashtable, using the next empty slot if the hashed slot
 			// is taken.
 			for ( $u = 0; $u < $count; ++$u ) {
+				// @phan-suppress-next-line PhanTypePossiblyInvalidDimOffset
 				$hp = $packedTables[$starts[$i] + $u];
 				$where = Util::unsignedMod(
 					Util::unsignedShiftRight( $hp['h'], 8 ), $len );
@@ -228,6 +226,7 @@ class PHP extends Writer {
 	 * Clean up the temp file and throw an exception
 	 *
 	 * @param string $msg
+	 * @return never
 	 * @throws Exception
 	 */
 	protected function throwException( $msg ) {

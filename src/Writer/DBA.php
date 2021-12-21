@@ -26,8 +26,12 @@ use Cdb\Writer;
  */
 class DBA extends Writer {
 	/**
+	 * The file handle
+	 */
+	protected $handle;
+
+	/**
 	 * @param string $fileName
-	 * @throws Exception
 	 */
 	public function __construct( $fileName ) {
 		$this->realFileName = $fileName;
@@ -42,19 +46,16 @@ class DBA extends Writer {
 		return dba_insert( $key, $value, $this->handle );
 	}
 
-	/**
-	 * @throws Exception
-	 */
 	public function close() {
-		if ( isset( $this->handle ) ) {
+		if ( $this->handle ) {
 			dba_close( $this->handle );
+			if ( $this->isWindows() ) {
+				unlink( $this->realFileName );
+			}
+			if ( !rename( $this->tmpFileName, $this->realFileName ) ) {
+				throw new Exception( 'Unable to move the new CDB file into place.' );
+			}
 		}
-		if ( $this->isWindows() ) {
-			unlink( $this->realFileName );
-		}
-		if ( !rename( $this->tmpFileName, $this->realFileName ) ) {
-			throw new Exception( 'Unable to move the new CDB file into place.' );
-		}
-		unset( $this->handle );
+		$this->handle = null;
 	}
 }

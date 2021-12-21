@@ -42,14 +42,14 @@ final class Cli {
 
 	/**
 	 * @param resource $out An open output handle for fwrite()
-	 * @param string[] $argv
+	 * @param string[] $args
 	 */
-	public function __construct( $out, array $argv ) {
+	public function __construct( $out, array $args ) {
 		$this->out = $out;
-		$this->self = $argv[0] ?? './bin/cdb';
-		$this->filepath = $argv[1] ?? '';
-		$this->action = $argv[2] ?? '';
-		$this->params = array_slice( $argv, 3 );
+		$this->self = $args[0] ?? './bin/cdb';
+		$this->filepath = $args[1] ?? '';
+		$this->action = $args[2] ?? '';
+		$this->params = array_slice( $args, 3 );
 	}
 
 	/** Main method. */
@@ -72,7 +72,7 @@ final class Cli {
 			}
 		} catch ( \Throwable $e ) {
 			$this->exitCode = 1;
-			$this->output( $e );
+			$this->output( (string)$e );
 		}
 	}
 
@@ -118,6 +118,7 @@ final class Cli {
 			return;
 		}
 		$pattern = $this->params[0];
+		// @phan-suppress-next-line PhanParamSuspiciousOrder
 		if ( preg_match( $pattern, '' ) === false ) {
 			$this->error( 'Invalid regular expression pattern.' );
 			return;

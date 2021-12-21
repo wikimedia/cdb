@@ -36,6 +36,11 @@ class PHP extends Reader {
 	protected $fileName;
 
 	/**
+	 * The file handle
+	 */
+	protected $handle;
+
+	/**
 	 * @var string $index
 	 * First 2048 bytes of CDB file, containing pointers to hash table.
 	 */
@@ -104,10 +109,10 @@ class PHP extends Reader {
 	 * Close the handle on the CDB file.
 	 */
 	public function close() {
-		if ( isset( $this->handle ) ) {
+		if ( $this->handle ) {
 			fclose( $this->handle );
 		}
-		unset( $this->handle );
+		$this->handle = null;
 	}
 
 	/**

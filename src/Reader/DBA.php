@@ -25,6 +25,11 @@ use Cdb\Reader;
  * Reader class which uses the DBA extension (php-dba)
  */
 class DBA extends Reader {
+	/**
+	 * The file handle
+	 */
+	protected $handle;
+
 	public function __construct( $fileName ) {
 		$this->handle = dba_open( $fileName, 'r-', 'cdb' );
 		if ( !$this->handle ) {
@@ -33,10 +38,10 @@ class DBA extends Reader {
 	}
 
 	public function close() {
-		if ( isset( $this->handle ) ) {
+		if ( $this->handle ) {
 			dba_close( $this->handle );
 		}
-		unset( $this->handle );
+		$this->handle = null;
 	}
 
 	public function get( $key ) {

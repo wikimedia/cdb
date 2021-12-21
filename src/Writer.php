@@ -26,11 +26,6 @@ namespace Cdb;
  */
 abstract class Writer {
 	/**
-	 * The file handle
-	 */
-	protected $handle;
-
-	/**
 	 * File we'll be writing to when we're done
 	 * @var string $realFileName
 	 */
@@ -79,9 +74,7 @@ abstract class Writer {
 	 * If the object goes out of scope, close it
 	 */
 	public function __destruct() {
-		if ( isset( $this->handle ) ) {
-			$this->close();
-		}
+		$this->close();
 	}
 
 	/**

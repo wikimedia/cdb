@@ -25,7 +25,7 @@ use Cdb\Reader;
  * PHP array (a.k.a "hash").
  */
 class Hash extends Reader {
-	/** @var string $data */
+	/** @var string[] $data */
 	private $data;
 
 	/**
@@ -59,18 +59,16 @@ class Hash extends Reader {
 	 * Get a value with a given key. Only string values are supported.
 	 *
 	 * @param string $key
-	 *
-	 * @return bool|string The value associated with $key, or false if $key is not known.
+	 * @return string|false The value associated with $key, or false if $key is not known.
 	 */
 	public function get( $key ) {
-		return isset( $this->data[ $key ] ) ? $this->data[ $key ] : false;
+		return $this->data[ $key ] ?? false;
 	}
 
 	/**
 	 * Check whether key exists
 	 *
 	 * @param string $key
-	 *
 	 * @return bool
 	 */
 	public function exists( $key ) {
@@ -80,7 +78,7 @@ class Hash extends Reader {
 	/**
 	 * Fetch first key
 	 *
-	 * @return string
+	 * @return string|false
 	 */
 	public function firstkey() {
 		$this->keys = array_keys( $this->data );
@@ -90,14 +88,14 @@ class Hash extends Reader {
 	/**
 	 * Fetch next key
 	 *
-	 * @return string
+	 * @return string|false
 	 */
 	public function nextkey() {
 		if ( $this->keys === null ) {
 			return $this->firstkey();
 		}
 
-		return empty( $this->keys ) ? false : array_shift( $this->keys );
+		return $this->keys ? array_shift( $this->keys ) : false;
 	}
 
 }
