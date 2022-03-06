@@ -38,19 +38,16 @@ class Hash extends Reader {
 	/**
 	 * Create the object and open the file
 	 *
-	 * @param string[] $data An associative PHP array.
+	 * @param string[] $data An associative array
 	 */
-	public function __construct( $data ) {
-		if ( !is_array( $data ) ) {
-			throw new \InvalidArgumentException( __METHOD__ . ': "$data" must be an array.' );
-		}
+	public function __construct( array $data ) {
 		$this->data = $data;
 	}
 
 	/**
 	 * Close the file. Optional, you can just let the variable go out of scope.
 	 */
-	public function close() {
+	public function close(): void {
 		$this->data = [];
 		$this->keys = null;
 	}
@@ -58,7 +55,7 @@ class Hash extends Reader {
 	/**
 	 * Get a value with a given key. Only string values are supported.
 	 *
-	 * @param string $key
+	 * @param string|int $key
 	 * @return string|false The value associated with $key, or false if $key is not known.
 	 */
 	public function get( $key ) {
@@ -68,10 +65,10 @@ class Hash extends Reader {
 	/**
 	 * Check whether key exists
 	 *
-	 * @param string $key
+	 * @param string|int $key
 	 * @return bool
 	 */
-	public function exists( $key ) {
+	public function exists( $key ): bool {
 		return isset( $this->data[ $key ] );
 	}
 

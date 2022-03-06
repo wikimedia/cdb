@@ -37,7 +37,7 @@ class DBA extends Reader {
 		}
 	}
 
-	public function close() {
+	public function close(): void {
 		if ( $this->handle ) {
 			dba_close( $this->handle );
 		}
@@ -45,11 +45,11 @@ class DBA extends Reader {
 	}
 
 	public function get( $key ) {
-		return dba_fetch( $key, $this->handle );
+		return dba_fetch( (string)$key, $this->handle );
 	}
 
-	public function exists( $key ) {
-		return dba_exists( $key, $this->handle );
+	public function exists( $key ): bool {
+		return dba_exists( (string)$key, $this->handle );
 	}
 
 	public function firstkey() {

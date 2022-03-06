@@ -31,7 +31,7 @@ abstract class Reader {
 	 * @param string $fileName
 	 * @return Reader
 	 */
-	public static function open( $fileName ) {
+	public static function open( $fileName ): Reader {
 		return self::haveExtension() ?
 			new Reader\DBA( $fileName ) :
 			new Reader\PHP( $fileName );
@@ -43,7 +43,7 @@ abstract class Reader {
 	 * @return bool
 	 * @codeCoverageIgnore
 	 */
-	public static function haveExtension() {
+	public static function haveExtension(): bool {
 		if ( !function_exists( 'dba_handlers' ) ) {
 			return false;
 		}
@@ -58,12 +58,13 @@ abstract class Reader {
 	/**
 	 * Close the file. Optional, you can just let the variable go out of scope.
 	 */
-	abstract public function close();
+	abstract public function close(): void;
 
 	/**
 	 * Get a value with a given key. Only string values are supported.
 	 *
-	 * @param string $key
+	 * @param string|int $key
+	 * @return string|false
 	 */
 	abstract public function get( $key );
 
@@ -71,8 +72,9 @@ abstract class Reader {
 	 * Check whether key exists
 	 *
 	 * @param string $key
+	 * @return bool
 	 */
-	abstract public function exists( $key );
+	abstract public function exists( $key ): bool;
 
 	/**
 	 * Fetch first key

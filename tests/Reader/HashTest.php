@@ -9,7 +9,7 @@ use Cdb\Reader\Hash;
 class HashTest extends \PHPUnit\Framework\TestCase {
 
 	public function testConstructor_fail() {
-		$this->expectException( \InvalidArgumentException::class );
+		$this->expectException( \TypeError::class );
 		new Hash( 'not an array' );
 	}
 

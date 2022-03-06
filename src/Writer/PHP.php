@@ -41,9 +41,11 @@ class PHP extends Writer {
 	protected $pos;
 
 	/**
+	 * Create the object and open the file.
+	 *
 	 * @param string $fileName
 	 */
-	public function __construct( $fileName ) {
+	public function __construct( string $fileName ) {
 		$this->realFileName = $fileName;
 		$this->tmpFileName = $fileName . '.tmp.' . mt_rand( 0, 0x7fffffff );
 		$this->handle = fopen( $this->tmpFileName, 'wb' );
@@ -63,8 +65,9 @@ class PHP extends Writer {
 	 * @param string $key
 	 * @param string $value
 	 */
-	public function set( $key, $value ) {
-		if ( strval( $key ) === '' ) {
+	public function set( $key, $value ): void {
+		$key = (string)$key;
+		if ( $key === '' ) {
 			// DBA cross-check hack
 			return;
 		}
@@ -74,7 +77,7 @@ class PHP extends Writer {
 		$this->addend( strlen( $key ), strlen( $value ), Util::hash( $key ) );
 	}
 
-	public function close() {
+	public function close(): void {
 		if ( $this->handle ) {
 			$this->finish();
 			fclose( $this->handle );
@@ -92,7 +95,7 @@ class PHP extends Writer {
 	/**
 	 * @param string $buf
 	 */
-	protected function write( $buf ) {
+	protected function write( $buf ): void {
 		$len = fwrite( $this->handle, $buf );
 		if ( $len !== strlen( $buf ) ) {
 			$this->throwException( 'Error writing to CDB file "' . $this->tmpFileName . '".' );
@@ -143,7 +146,7 @@ class PHP extends Writer {
 		$this->write( $buf );
 	}
 
-	protected function finish() {
+	protected function finish(): void {
 		// Hack for DBA cross-check
 		$this->hplist = array_reverse( $this->hplist );
 

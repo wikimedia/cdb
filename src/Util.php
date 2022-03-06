@@ -33,7 +33,7 @@ class Util {
 	 * @param int $b
 	 * @return int
 	 */
-	public static function unsignedMod( $a, $b ) {
+	public static function unsignedMod( $a, $b ): int {
 		if ( $a & 0x80000000 ) {
 			$m = ( $a & 0x7fffffff ) % $b + 2 * ( 0x40000000 % $b );
 
@@ -50,7 +50,7 @@ class Util {
 	 * @param int $b
 	 * @return int
 	 */
-	public static function unsignedShiftRight( $a, $b ) {
+	public static function unsignedShiftRight( $a, $b ): int {
 		if ( $b == 0 ) {
 			return $a;
 		}
@@ -67,7 +67,7 @@ class Util {
 	 * @param string $s
 	 * @return int
 	 */
-	public static function hash( $s ) {
+	public static function hash( $s ): int {
 		$h = 5381;
 		$len = strlen( $s );
 		for ( $i = 0; $i < $len; $i++ ) {

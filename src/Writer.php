@@ -51,24 +51,18 @@ abstract class Writer {
 	}
 
 	/**
-	 * Create the object and open the file
-	 *
-	 * @param string $fileName
-	 */
-	abstract public function __construct( $fileName );
-
-	/**
 	 * Set a key to a given value. The value will be converted to string.
+	 *
 	 * @param string $key
 	 * @param string $value
 	 */
-	abstract public function set( $key, $value );
+	abstract public function set( $key, $value ): void;
 
 	/**
 	 * Close the writer object. You should call this function before the object
 	 * goes out of scope, to write out the final hashtables.
 	 */
-	abstract public function close();
+	abstract public function close(): void;
 
 	/**
 	 * If the object goes out of scope, close it
