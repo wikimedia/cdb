@@ -27,13 +27,13 @@ namespace Cdb;
 abstract class Writer {
 	/**
 	 * File we'll be writing to when we're done
-	 * @var string $realFileName
+	 * @var string
 	 */
 	protected $realFileName;
 
 	/**
 	 * File we write to temporarily until we're done
-	 * @var string $tmpFileName
+	 * @var string
 	 */
 	protected $tmpFileName;
 

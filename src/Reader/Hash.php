@@ -25,13 +25,13 @@ use Cdb\Reader;
  * PHP array (a.k.a "hash").
  */
 class Hash extends Reader {
-	/** @var string[] $data */
+	/** @var string[] */
 	private $data;
 
 	/**
 	 * A queue of keys to return from nextkey(), initialized by firstkey();
 	 *
-	 * @var string[]|null $keys
+	 * @var string[]|null
 	 */
 	private $keys = null;
 

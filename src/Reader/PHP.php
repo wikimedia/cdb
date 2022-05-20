@@ -31,7 +31,7 @@ use Cdb\Util;
 class PHP extends Reader {
 	/**
 	 * The file name of the CDB file.
-	 * @var string $fileName
+	 * @var string
 	 */
 	protected $fileName;
 
@@ -41,50 +41,50 @@ class PHP extends Reader {
 	protected $handle;
 
 	/**
-	 * @var string $index
+	 * @var string
 	 * First 2048 bytes of CDB file, containing pointers to hash table.
 	 */
 	protected $index;
 
 	/**
 	 * Offset in file where value of found key starts.
-	 * @var int $dataPos
+	 * @var int
 	 */
 	protected $dataPos;
 
 	/**
 	 * Byte length of found key's value.
-	 * @var int $dataLen
+	 * @var int
 	 */
 	protected $dataLen;
 
 	/**
 	 * File position indicator when iterating over keys.
-	 * @var int $keyIterPos
+	 * @var int
 	 */
 	protected $keyIterPos = 2048;
 
 	/**
 	 * Offset in file where hash tables start.
-	 * @var int $keyIterStop
+	 * @var int
 	 */
 	protected $keyIterStop;
 
 	/**
 	 * Read buffer for CDB file.
-	 * @var string $buf
+	 * @var string
 	 */
 	protected $buf;
 
 	/**
 	 * File offset where read buffer starts.
-	 * @var int $bufStart
+	 * @var int
 	 */
 	protected $bufStart;
 
 	/**
 	 * File handle position indicator.
-	 * @var int $filePos
+	 * @var int
 	 */
 	protected $filePos = 2048;
 

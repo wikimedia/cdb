@@ -22,22 +22,22 @@ namespace Cdb;
  * @internal For use by bin/cdb only.
  */
 final class Cli {
-	/** @var int $exitCode */
+	/** @var int */
 	private $exitCode = 0;
 
-	/** @var resource $out */
+	/** @var resource */
 	private $out;
 
-	/** @var string $self */
+	/** @var string */
 	private $self;
 
-	/** @var string $filepath */
+	/** @var string */
 	private $filepath;
 
-	/** @var string $action */
+	/** @var string */
 	private $action;
 
-	/** @var string[] $params */
+	/** @var string[] */
 	private $params;
 
 	/**
