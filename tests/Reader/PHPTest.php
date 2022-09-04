@@ -3,11 +3,12 @@ namespace Cdb\Test;
 
 use Cdb\Exception;
 use Cdb\Reader\PHP;
+use PHPUnit\Framework\TestCase;
 
 /**
- * @covers Cdb\Reader\PHP
+ * @covers \Cdb\Reader\PHP
  */
-class PHPTest extends \PHPUnit\Framework\TestCase {
+class PHPTest extends TestCase {
 	private $cdbFile;
 
 	protected function setUp(): void {

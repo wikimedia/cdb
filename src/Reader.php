@@ -48,11 +48,8 @@ abstract class Reader {
 			return false;
 		}
 		$handlers = dba_handlers();
-		if ( !in_array( 'cdb', $handlers ) || !in_array( 'cdb_make', $handlers ) ) {
-			return false;
-		}
 
-		return true;
+		return in_array( 'cdb', $handlers ) && in_array( 'cdb_make', $handlers );
 	}
 
 	/**

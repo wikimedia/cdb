@@ -3,8 +3,17 @@ namespace Cdb\Test;
 
 use Cdb\Reader;
 use Cdb\Writer;
+use PHPUnit\Framework\TestCase;
 
-class CdbTest extends \PHPUnit\Framework\TestCase {
+/**
+ * @covers \Cdb\Util
+ * @covers \Cdb\Writer
+ * @covers \Cdb\Writer\PHP
+ * @covers \Cdb\Writer\DBA
+ * @covers \Cdb\Reader\PHP
+ * @covers \Cdb\Reader\DBA
+ */
+class CdbTest extends TestCase {
 	private $phpCdbFile;
 	private $dbaCdbFile;
 
@@ -49,9 +58,6 @@ class CdbTest extends \PHPUnit\Framework\TestCase {
 		);
 	}
 
-	/**
-	 * @covers Cdb\Reader::open
-	 */
 	public function testReaderOpen() {
 		$this->assertInstanceOf(
 			Reader::class,
@@ -59,9 +65,6 @@ class CdbTest extends \PHPUnit\Framework\TestCase {
 		);
 	}
 
-	/**
-	 * @covers Cdb\Writer::open
-	 */
 	public function testWriterOpen() {
 		$this->assertInstanceOf(
 			Writer::class,
@@ -69,14 +72,6 @@ class CdbTest extends \PHPUnit\Framework\TestCase {
 		);
 	}
 
-	/**
-	 * @covers Cdb\Util
-	 * @covers Cdb\Writer
-	 * @covers Cdb\Writer\PHP
-	 * @covers Cdb\Writer\DBA
-	 * @covers Cdb\Reader\PHP
-	 * @covers Cdb\Reader\DBA
-	 */
 	public function testReadWrite() {
 		$w1 = new Writer\PHP( $this->phpCdbFile );
 		$w2 = new Writer\DBA( $this->dbaCdbFile );
@@ -155,17 +150,11 @@ class CdbTest extends \PHPUnit\Framework\TestCase {
 		$this->assertFalse( $r2->nextkey() );
 	}
 
-	/**
-	 * @covers Cdb\Writer\PHP::finish
-	 */
 	public function testEmpty() {
 		$w = new Writer\PHP( $this->phpCdbFile );
 		$this->assertNull( $w->close() );
 	}
 
-	/**
-	 * @covers Cdb\Writer::__destruct
-	 */
 	public function testDestruct() {
 		$w = new Writer\PHP( $this->phpCdbFile );
 		$this->assertInstanceOf(

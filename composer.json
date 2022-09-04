@@ -37,6 +37,9 @@
 		"php-parallel-lint/php-parallel-lint": "1.3.2",
 		"phpunit/phpunit": "^8.5"
 	},
+	"suggest": {
+		"ext-dba": "PHP extension for DBA access. Would be quicker than the PHP based fallback"
+	},
 	"scripts": {
 		"test": [
 			"parallel-lint . --exclude vendor",

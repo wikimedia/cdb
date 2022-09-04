@@ -4,11 +4,12 @@ namespace Cdb\Test;
 use Cdb\Exception;
 use Cdb\Reader;
 use Cdb\Reader\DBA;
+use PHPUnit\Framework\TestCase;
 
 /**
- * @covers Cdb\Reader\DBA
+ * @covers \Cdb\Reader\DBA
  */
-class DBATest extends \PHPUnit\Framework\TestCase {
+class DBATest extends TestCase {
 
 	protected function setUp(): void {
 		parent::setUp();

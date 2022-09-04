@@ -2,11 +2,12 @@
 namespace Cdb\Test;
 
 use Cdb\Cli;
+use PHPUnit\Framework\TestCase;
 
 /**
- * @covers Cdb\Cli
+ * @covers \Cdb\Cli
  */
-class CliTest extends \PHPUnit\Framework\TestCase {
+class CliTest extends TestCase {
 	private const FIXTURE = __DIR__ . '/fixture/example.cdb';
 	private $out;
 

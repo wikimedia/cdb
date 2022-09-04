@@ -18,6 +18,8 @@
 
 namespace Cdb;
 
+use Throwable;
+
 /**
  * @internal For use by bin/cdb only.
  */
@@ -70,7 +72,7 @@ final class Cli {
 				$this->help();
 				break;
 			}
-		} catch ( \Throwable $e ) {
+		} catch ( Throwable $e ) {
 			$this->exitCode = 1;
 			$this->output( (string)$e );
 		}
