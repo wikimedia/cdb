@@ -72,9 +72,27 @@ class PHP extends Writer {
 			// DBA cross-check hack
 			return;
 		}
-		$this->addbegin( strlen( $key ), strlen( $value ) );
-		$this->write( $key . $value );
-		$this->addend( strlen( $key ), strlen( $value ), Util::hash( $key ) );
+
+		// Based on cdb_make_addbegin
+		$keylen = strlen( $key );
+		$datalen = strlen( $value );
+		if ( $keylen > 0x7fffffff ) {
+			$this->throwException( 'Key length too long in file "' . $this->tmpFileName . '".' );
+		}
+		if ( $datalen > 0x7fffffff ) {
+			$this->throwException( 'Data length too long in file "' . $this->tmpFileName . '".' );
+		}
+		$begin = pack( 'VV', $keylen, $datalen );
+
+		$this->write( $begin . $key . $value );
+
+		// Based on cdb_make_addend
+		$this->hplist[] = [
+			'h' => Util::hash( $key ),
+			'p' => $this->pos
+		];
+		$this->numentries++;
+		$this->posplus( 8 + $keylen + $datalen );
 	}
 
 	public function close(): void {
@@ -112,36 +130,6 @@ class PHP extends Writer {
 				'A value in the CDB file "' . $this->tmpFileName . '" is too large.' );
 		}
 		$this->pos = $newpos;
-	}
-
-	/**
-	 * @param int $keylen
-	 * @param int $datalen
-	 * @param int $h
-	 */
-	protected function addend( $keylen, $datalen, $h ) {
-		$this->hplist[] = [
-			'h' => $h,
-			'p' => $this->pos
-		];
-
-		$this->numentries++;
-		$this->posplus( 8 + $keylen + $datalen );
-	}
-
-	/**
-	 * @param int $keylen
-	 * @param int $datalen
-	 */
-	protected function addbegin( $keylen, $datalen ) {
-		if ( $keylen > 0x7fffffff ) {
-			$this->throwException( 'Key length too long in file "' . $this->tmpFileName . '".' );
-		}
-		if ( $datalen > 0x7fffffff ) {
-			$this->throwException( 'Data length too long in file "' . $this->tmpFileName . '".' );
-		}
-		$buf = pack( 'VV', $keylen, $datalen );
-		$this->write( $buf );
 	}
 
 	protected function finish(): void {
