@@ -183,10 +183,7 @@ class PHP extends Writer {
 			$len = $count + $count;
 			$final .= pack( 'VV', $this->pos, $len );
 
-			$hashtable = [];
-			for ( $u = 0; $u < $len; ++$u ) {
-				$hashtable[$u] = [ 'h' => 0, 'p' => 0 ];
-			}
+			$hashtable = array_fill( 0, $len, [ 'h' => 0, 'p' => 0 ] );
 
 			// Fill the hashtable, using the next empty slot if the hashed slot
 			// is taken.
