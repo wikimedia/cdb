@@ -72,8 +72,7 @@ class PHP extends Writer {
 			return;
 		}
 		$this->addbegin( strlen( $key ), strlen( $value ) );
-		$this->write( $key );
-		$this->write( $value );
+		$this->write( $key . $value );
 		$this->addend( strlen( $key ), strlen( $value ), Util::hash( $key ) );
 	}
 
@@ -126,9 +125,7 @@ class PHP extends Writer {
 		];
 
 		$this->numentries++;
-		$this->posplus( 8 );
-		$this->posplus( $keylen );
-		$this->posplus( $datalen );
+		$this->posplus( 8 + $keylen + $datalen );
 	}
 
 	/**
@@ -207,14 +204,15 @@ class PHP extends Writer {
 			}
 
 			// Write the hashtable
+			$buf = '';
 			for ( $u = 0; $u < $len; ++$u ) {
-				$buf = pack( 'vvV',
+				$buf .= pack( 'vvV',
 					$hashtable[$u]['h'] & 0xffff,
 					Util::unsignedShiftRight( $hashtable[$u]['h'], 16 ),
 					$hashtable[$u]['p'] );
-				$this->write( $buf );
-				$this->posplus( 8 );
 			}
+			$this->write( $buf );
+			$this->posplus( strlen( $buf ) );
 		}
 
 		// Write the pointer array at the start of the file
