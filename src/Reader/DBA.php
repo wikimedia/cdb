@@ -26,7 +26,7 @@ use Cdb\Reader;
  */
 class DBA extends Reader {
 	/**
-	 * The file handle
+	 * @var resource|false|null The file handle
 	 */
 	protected $handle;
 

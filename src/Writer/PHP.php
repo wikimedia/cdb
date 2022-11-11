@@ -30,14 +30,17 @@ use Cdb\Writer;
  */
 class PHP extends Writer {
 	/**
-	 * The file handle
+	 * @var resource|false|null The file handle
 	 */
 	protected $handle;
 
-	protected $hplist;
+	/** @var int[][] */
+	protected $hplist = [];
 
-	protected $numentries;
+	/** @var int */
+	protected $numentries = 0;
 
+	/** @var int */
 	protected $pos;
 
 	/**
@@ -53,8 +56,6 @@ class PHP extends Writer {
 			$this->throwException(
 				'Unable to open CDB file "' . $this->tmpFileName . '" for write.' );
 		}
-		$this->hplist = [];
-		$this->numentries = 0;
 		$this->pos = 2048; // leaving space for the pointer array, 256 * 8
 		if ( fseek( $this->handle, $this->pos ) == -1 ) {
 			$this->throwException( 'fseek failed in file "' . $this->tmpFileName . '".' );
