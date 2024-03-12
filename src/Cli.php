@@ -58,19 +58,19 @@ final class Cli {
 	public function run() {
 		try {
 			switch ( $this->action ) {
-			case 'get':
-				$this->runGet();
-				break;
-			case 'list':
-				$this->runList();
-				break;
-			case 'match':
-				$this->runMatch();
-				break;
-			default:
-				$this->exitCode = 1;
-				$this->help();
-				break;
+				case 'get':
+					$this->runGet();
+					break;
+				case 'list':
+					$this->runList();
+					break;
+				case 'match':
+					$this->runMatch();
+					break;
+				default:
+					$this->exitCode = 1;
+					$this->help();
+					break;
 			}
 		} catch ( Throwable $e ) {
 			$this->exitCode = 1;
