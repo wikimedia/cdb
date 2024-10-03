@@ -31,8 +31,12 @@ class CdbTest extends TestCase {
 	}
 
 	protected function tearDown(): void {
-		unlink( $this->phpCdbFile );
-		unlink( $this->dbaCdbFile );
+		if ( $this->phpCdbFile !== null ) {
+			unlink( $this->phpCdbFile );
+		}
+		if ( $this->dbaCdbFile !== null ) {
+			unlink( $this->dbaCdbFile );
+		}
 		parent::tearDown();
 	}
 
