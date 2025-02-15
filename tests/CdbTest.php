@@ -14,8 +14,8 @@ use PHPUnit\Framework\TestCase;
  * @covers \Cdb\Reader\DBA
  */
 class CdbTest extends TestCase {
-	private $phpCdbFile;
-	private $dbaCdbFile;
+	private string $phpCdbFile;
+	private string $dbaCdbFile;
 
 	protected function setUp(): void {
 		parent::setUp();

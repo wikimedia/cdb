@@ -30,7 +30,7 @@ class DBA extends Reader {
 	 */
 	protected $handle;
 
-	public function __construct( $fileName ) {
+	public function __construct( string $fileName ) {
 		$this->handle = dba_open( $fileName, 'r-', 'cdb' );
 		if ( !$this->handle ) {
 			throw new Exception( 'Unable to open CDB file "' . $fileName . '"' );

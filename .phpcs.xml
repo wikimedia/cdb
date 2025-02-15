@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ruleset>
 	<rule ref="./vendor/mediawiki/mediawiki-codesniffer/MediaWiki">
-		<exclude name="MediaWiki.Commenting.FunctionComment.MissingDocumentationPublic" />
-		<exclude name="MediaWiki.Commenting.PropertyDocumentation.MissingDocumentationPrivate" />
-		<exclude name="MediaWiki.Commenting.PropertyDocumentation.MissingVar" />
 		<exclude name="MediaWiki.WhiteSpace.SpaceBeforeSingleLineComment.NewLineComment" />
+	</rule>
+	<!--
+	  - It's generally incorrect to add doc comments to overridden methods.
+	  - Use of @inheritDoc or any other such text breaks Doxygen's automatic
+	  - documentation inheritance.
+	  - For methods that are not overriding something, this rule is correct,
+	  - but there is apparently no way to select only those methods.
+	  -->
+	<rule ref="MediaWiki.Commenting.FunctionComment.MissingDocumentationPublic">
+		<severity>0</severity>
 	</rule>
 	<rule ref="Generic.PHP.NoSilencedErrors.Discouraged">
 		<exclude-pattern>*/tests/*</exclude-pattern>

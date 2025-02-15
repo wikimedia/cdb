@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
  * @covers \Cdb\Reader\PHP
  */
 class PHPTest extends TestCase {
-	private $cdbFile;
+	private string $cdbFile;
 
 	protected function setUp(): void {
 		parent::setUp();

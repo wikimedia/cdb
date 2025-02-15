@@ -9,6 +9,7 @@ use PHPUnit\Framework\TestCase;
  */
 class CliTest extends TestCase {
 	private const FIXTURE = __DIR__ . '/fixture/example.cdb';
+	/** @var resource|null */
 	private $out;
 
 	protected function setUp(): void {

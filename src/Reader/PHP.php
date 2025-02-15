@@ -36,7 +36,7 @@ class PHP extends Reader {
 	protected $fileName;
 
 	/**
-	 * The file handle
+	 * @var resource|false|null The file handle
 	 */
 	protected $handle;
 

@@ -26,7 +26,7 @@ use Cdb\Writer;
  */
 class DBA extends Writer {
 	/**
-	 * The file handle
+	 * @var resource|false|null The file handle
 	 */
 	protected $handle;
 
