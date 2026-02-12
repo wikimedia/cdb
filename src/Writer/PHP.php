@@ -164,7 +164,6 @@ class PHP extends Writer {
 			// Fill the hashtable, using the next empty slot if the hashed slot
 			// is taken.
 			for ( $u = 0; $u < $count; ++$u ) {
-				// @phan-suppress-next-line PhanTypePossiblyInvalidDimOffset
 				$hp = $packedTables[$starts[$i] + $u];
 				$where = Util::unsignedMod(
 					Util::unsignedShiftRight( $hp['h'], 8 ), $len );
