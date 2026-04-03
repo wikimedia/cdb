@@ -16,6 +16,7 @@
 	<rule ref="Generic.PHP.NoSilencedErrors.Discouraged">
 		<exclude-pattern>*/tests/*</exclude-pattern>
 	</rule>
+	<rule ref="Generic.PHP.RequireStrictTypes" />
 	<file>.</file>
 	<arg name="encoding" value="UTF-8"/>
 	<arg name="extensions" value="php"/>
