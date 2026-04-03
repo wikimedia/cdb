@@ -92,14 +92,6 @@ class CdbTest extends TestCase {
 			}
 		}
 
-		// The above will randomly sometimes generate a number-like string,
-		// which then becomes an integer when iterated below in foreach.
-		// Add an explicit test case for this so that we reliably ensure that
-		// passing integers is allowed, as these can commonly become strings.
-		$w1->set( 42, 'xyz' );
-		$w2->set( 42, 'xyz' );
-		$data[42] = 'xyz';
-
 		$w1->close();
 		$w2->close();
 
@@ -113,6 +105,10 @@ class CdbTest extends TestCase {
 		$r2 = new Reader\DBA( $this->dbaCdbFile );
 
 		foreach ( $data as $key => $value ) {
+			// The above will randomly sometimes generate a number-like string,
+			// which then becomes an integer when iterated in foreach.
+			$key = (string)$key;
+
 			$v1 = $r1->get( $key );
 			$v2 = $r2->get( $key );
 
