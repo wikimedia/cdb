@@ -87,7 +87,12 @@ class PHP extends Writer {
 	public function close(): void {
 		if ( $this->handle ) {
 			$this->finish();
-			fclose( $this->handle );
+
+			// parent::__destruct() calls this function as well, in case of the exception below that would close again
+			$handle = $this->handle;
+			$this->handle = null;
+
+			fclose( $handle );
 
 			if ( $this->isWindows() && file_exists( $this->realFileName ) ) {
 				unlink( $this->realFileName );
@@ -96,7 +101,6 @@ class PHP extends Writer {
 				$this->throwException( 'Unable to move the new CDB file into place.' );
 			}
 		}
-		$this->handle = null;
 	}
 
 	/**
@@ -207,6 +211,7 @@ class PHP extends Writer {
 	protected function throwException( $msg ) {
 		if ( $this->handle ) {
 			fclose( $this->handle );
+			$this->handle = null;
 			unlink( $this->tmpFileName );
 		}
 		throw new Exception( $msg );

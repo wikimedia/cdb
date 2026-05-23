@@ -39,7 +39,12 @@ class DBA extends Writer {
 
 	public function close(): void {
 		if ( $this->handle ) {
-			dba_close( $this->handle );
+			// parent::__destruct() calls this function as well, in case of the exception below that would close again
+			$handle = $this->handle;
+			$this->handle = null;
+
+			dba_close( $handle );
+
 			if ( $this->isWindows() ) {
 				unlink( $this->realFileName );
 			}
@@ -47,6 +52,5 @@ class DBA extends Writer {
 				throw new Exception( 'Unable to move the new CDB file into place.' );
 			}
 		}
-		$this->handle = null;
 	}
 }
